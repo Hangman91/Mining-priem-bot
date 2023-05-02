@@ -1,9 +1,16 @@
 import re
+import os
 
 from telegram.ext import Updater, Filters, MessageHandler, CommandHandler
 from telegram import ReplyKeyboardMarkup
 
-updater = Updater(token='6097495006:AAEUuOF7ILr_BDj73qob0uKaz_JC3Lg9OTQ')
+from dotenv import load_dotenv
+
+load_dotenv()
+
+secret_token = os.getenv('TOKEN')
+
+updater = Updater(token=secret_token)
 
 
 def i_dont_know(update, context):
