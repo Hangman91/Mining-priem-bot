@@ -174,7 +174,6 @@ def questions_about_specialization_magister(update, context):
         )
 
 
-
 def questions_about_kcp_magister(update, context):
     chat = update.effective_chat
     context.bot.send_message(
