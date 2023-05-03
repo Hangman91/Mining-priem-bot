@@ -174,7 +174,8 @@ def questions_about_specialization_magister(update, context):
         )
 
 
-def questions_about_KCP_magister(update, context):
+
+def questions_about_kcp_magister(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
@@ -403,7 +404,7 @@ def questions_about_specialization_first_course(update, context):
         )
 
 
-def questions_about_KCP_first_course(update, context):
+def questions_about_kcp_first_course(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
@@ -856,7 +857,7 @@ dict = {
     r'Информация о направлениях подготовки/специальностях':
         questions_about_landing_first_course,
     r'План приёма на первый курс':
-        questions_about_KCP_first_course,
+        questions_about_kcp_first_course,
     r'Направления подготовки/специальности':
         questions_about_specialization_first_course,
     r'Бакалавр|специалит':
@@ -878,7 +879,7 @@ dict = {
     r'Вступительные испытания в магистратуру':
         questions_about_exams_magister,
     r'План приёма в магистратуру':
-        questions_about_KCP_magister,
+        questions_about_kcp_magister,
     r'Информация о специальностях магистратуры':
         questions_about_landing_magister,
     r'Направления подготовки магистратуры':
