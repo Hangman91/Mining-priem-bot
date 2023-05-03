@@ -16,7 +16,7 @@ updater = Updater(token=secret_token)
 def i_dont_know(update, context):
     chat = update.effective_chat
     button = ReplyKeyboardMarkup(
-        [['Позвать оператора', 'Начнем сначала?']],
+        [['Перейти к оператору', 'Начнем сначала?']],
         resize_keyboard=True
         )
     context.bot.send_message(
@@ -37,7 +37,7 @@ def call_operator(update, context):
         )
     context.bot.send_message(
         chat_id=chat.id,
-        text='Пока тут нет оператора. Начнем сначала?',
+        text='https://t.me/Mining_university_official',
         reply_markup=button
         )
 
