@@ -45,7 +45,7 @@ def wake_up(update, context):
     chat = update.effective_chat
     name = update.message.chat.first_name
     buttons = ReplyKeyboardMarkup(
-        [['Хочу узнать про поступление', 'Хочу узнать про общежитие']],
+        [['Хочу узнать про поступление', 'Хочу узнать про общежития']],
         resize_keyboard=True
         )
     context.bot.send_message(
