@@ -890,7 +890,7 @@ dict = {
         questions_about_price_hostel,
     r'Идентификационный':
         questions_about_identificate_number,
-    r'общежитие':
+    r'общежити|общаг':
         questions_about_hostel,
     }
 
