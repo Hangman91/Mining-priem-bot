@@ -2,14 +2,34 @@ import os
 import re
 
 from dotenv import load_dotenv
-from telegram import ReplyKeyboardMarkup
+from telegram import ReplyKeyboardMarkup, Bot
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
+
 
 load_dotenv()
 
 secret_token = os.getenv('TOKEN')
-
+boss_token = os.getenv('BOSS_TOKEN')
 updater = Updater(token=secret_token)
+
+# dumb way to build a database before attaching a database
+list_user = []
+
+
+def sent_list_to_boss():
+    """Отправляем необходимое письмо Дементьеву."""
+    chat_id = boss_token
+    bot = Bot(token=secret_token)
+    message = list_user
+    bot.send_message(chat_id, message)
+
+
+def add_list_user(update):
+    id_people = update.message.chat.id
+    name = update.message.chat.first_name
+    if [id_people, name] not in list_user:
+        list_user.append([id_people, name])
+        sent_list_to_boss()
 
 
 def i_dont_know(update, context):
@@ -45,7 +65,8 @@ def wake_up(update, context):
     chat = update.effective_chat
     name = update.message.chat.first_name
     buttons = ReplyKeyboardMarkup(
-        [['Хочу узнать про поступление', 'Хочу узнать про общежития']],
+        [['Хочу узнать про поступление', 'Хочу узнать про общежития'],
+         ['Конкурс "Лидер школы"', 'Не нашел ответа. Позвать оператора']],
         resize_keyboard=True
         )
     context.bot.send_message(
@@ -56,12 +77,14 @@ def wake_up(update, context):
             ),
         reply_markup=buttons
         )
+    add_list_user(update)
 
 
 def questions_about_hostel(update, context):
     chat = update.effective_chat
     buttons = ReplyKeyboardMarkup(
         [['Цены и виды комфортности'],
+         ['Количество мест в общежитиях'],
          ['Как и когда подавать заявление на общежитие?'],
          ['Как узнать свой идентификационный номер?'],
          ['Вернуться в начало']
@@ -93,7 +116,7 @@ def questions_about_application_for_hostel(update, context):
         text=(
             'Данную информацию можете получить по ссылке: ' +
             'https://priem.spmi.ru/sites/default/files/manager' +
-            '/obzhezhitia/2022/Poryadok_predost.pdf'
+            '/obzhezhitia/2023/Poryadok_predost.pdf'
             )
         )
 
@@ -105,6 +128,18 @@ def questions_about_price_hostel(update, context):
         text=(
             'Данную информацию можете получить по ссылке: ' +
             'https://spmi.ru/stoimost-prozivania-s-ucetom-komfortnosti'
+            )
+        )
+
+
+def question_len_hostels(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Данную информацию можете получить по ссылке: ' +
+            'https://priem.spmi.ru/sites/default/files/manager/obzhezhitia' +
+            '/2023/Svodnaya.pdf'
             )
         )
 
@@ -135,10 +170,21 @@ def questions_about_phd(update, context):
         )
 
 
+def submit_documents_magister(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Регистрируемся на сайте, заполняем анкету: \n'
+              'https://priem-univer.ru/podat-dokumenty-1'
+              ),
+        )
+
+
 def questions_about_magister(update, context):
     chat = update.effective_chat
     buttons = ReplyKeyboardMarkup(
-        [['Направления подготовки магистратуры'],
+        [['Подать документы в магистратуру'],
+         ['Направления подготовки магистратуры'],
          ['Вступительные испытания в магистратуру'],
          ['Документы для поступления в магистратуру'],
          ['Сроки подачи документов в магистратуру'],
@@ -362,10 +408,21 @@ def questions_about_lists_magister(update, context):
         )
 
 
+def submit_documents_first_course(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Регистрируемся на сайте, заполняем анкету: \n'
+              'https://priem-univer.ru/podat-dokumenty-1'
+              ),
+        )
+
+
 def questions_about_first_course(update, context):
     chat = update.effective_chat
     buttons = ReplyKeyboardMarkup(
-        [['Направления подготовки/специальности'],
+        [['Подать документы в бакалавриат/специалитет'],
+         ['Направления подготовки/специальности'],
          ['Требуемые ЕГЭ'],
          ['Минимальные баллы'],
          ['Необходимые документы на первый курс'],
@@ -811,11 +868,110 @@ def questions_about_achievement_first_course_official(update, context):
         )
 
 
+def lider_of_the_school(update, context):
+    chat = update.effective_chat
+    buttons = ReplyKeyboardMarkup(
+        [['Как принять участие в конкурсе?'],
+         ['Я подал соглашение, что дальше?'],
+         ['Когда будет итоговый конкурсный список?'],
+         ['Я в списке. Что дальше?'],
+         ['Когда зачисление?'],
+         ['Вернуться в начало']],
+        resize_keyboard=True
+        )
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Конкурс «Лидер школы» проводится с целью организации ' +
+            'качественного ' +
+            'приема на обучение по направлениям подготовки и специальностям ' +
+            'Горного университета в 2023 году. В конкурсе могут принять ' +
+            'участие выпускники средних общеобразовательных учреждений, ' +
+            'успешно сдавших ЕГЭ по предметам, профильным для ' +
+            'поступления в Университет и имеющим суммарный конкурсный ' +
+            'балл выше установленного порогового значения для ' +
+            'поступления на места в рамках «Отраслевого гранта».'
+        ),
+        reply_markup=buttons
+        )
+
+
+def enter_leader_school(update, context):
+    chat = update.effective_chat
+    buttons = ReplyKeyboardMarkup(
+        [['Подать заявку на участие в конкурсе'],
+         ['Скачать соглашение о намерениях'],
+         ['Вернуться в начало']],
+        resize_keyboard=True
+        )
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Вы можете оставить заявку на нашем сайте но ' +
+            'предварительно советуем прочитать положение.'
+        ),
+        reply_markup=buttons
+        )
+
+
+def download_booklet(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Скачать положение о конкурсе можно по ссылке: ' +
+            'https://leaderschool.spmi.ru/sites/default/files' +
+            '/LeaderSchool/2-2.jpg'
+        ),
+        )
+
+
+def welcome_to_leader_school(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Подать заявку можно по ссылке: ' +
+            'https://docs.google.com/forms/d/e/1FAIpQLSdZhKA47Elb-' +
+            'iCrvmtnt3FwU2yxFAVDskqg0aZxj7QqCnbUGg/viewform?pli=1'
+        ),
+        )
+
+
+def finish_entering_leader_school(update, context):
+    chat = update.effective_chat
+    buttons = ReplyKeyboardMarkup(
+        [['Подать документы в бакалавриат/специалитет'],
+         ['Вернуться в начало']],
+        resize_keyboard=True
+        )
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Для участия в конкурсе необходимо подать заявление (и на ' +
+            'бюджет и на контракт)'
+            ),
+        reply_markup=buttons
+    )
+
+
 dict = {
     r'оператор':
         call_operator,
     r'здравствуйте|сначала|привет|начало':
         wake_up,
+    r'Я подал соглашение, что дальше?':
+        finish_entering_leader_school,
+    r'Скачать соглашение':
+        download_booklet,
+    r'Подать заявку':
+        welcome_to_leader_school,
+    r'Как принять участие в конкурсе?':
+        enter_leader_school,
+    r'Лидер школы':
+        lider_of_the_school,
+    r'Подать документы в бакалавриат/специалитет':
+        submit_documents_first_course,
     r'Порядок учета индивидуальных достижений в бакалавриат/специалитет':
         questions_about_achievement_first_course_official,
     r'Перечень индивидуальных достижений в бакалавриате/специалитете':
@@ -882,6 +1038,8 @@ dict = {
         questions_about_landing_magister,
     r'Направления подготовки магистратуры':
         questions_about_specialization_magister,
+    r'Подать документы в магистратуру':
+        submit_documents_magister,
     r'магистратур|Назад к магистратуре':
         questions_about_magister,
     r'аспирантур':
@@ -892,6 +1050,8 @@ dict = {
         questions_about_application_for_hostel,
     r'Цены и виды комфортности':
         questions_about_price_hostel,
+    r'Количество мест в общежитиях':
+        question_len_hostels,
     r'Идентификационный':
         questions_about_identificate_number,
     r'общежити|общаг':
