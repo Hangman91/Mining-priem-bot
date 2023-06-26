@@ -355,7 +355,9 @@ def questions_about_lists_magister(update, context):
         )
     context.bot.send_message(
         chat_id=chat.id,
-        text='Списки поступающих будут опубликованы после 20-го июня.',
+        text=('Списки поступающих доступны по ссылке: ' +
+              'http://priem2023.spmi.ru/'
+              ),
         reply_markup=buttons
         )
 
@@ -408,7 +410,7 @@ def questions_about_kcp_first_course(update, context):
         text=(
             'Информация о количестве мест опубликована по ссылке: ' +
             'https://priem.spmi.ru/sites/default/files/manager' +
-            '/03.PlanPriema/kcp_bac_spec.pdf'
+            '/03.PlanPriema/kcp_bak_spec.pdf'
             ),
         )
 
@@ -579,7 +581,9 @@ def questions_about_lists_first_course(update, context):
         )
     context.bot.send_message(
         chat_id=chat.id,
-        text='Списки поступающих будут опубликованы после 20-го июня.',
+        text=('Списки поступающих доступны по ссылке: ' +
+              'http://priem2023.spmi.ru/'
+              ),
         reply_markup=buttons
         )
 
