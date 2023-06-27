@@ -998,9 +998,9 @@ dict = {
         wake_up,
     r'Когда зачисление?':
         when_enrollment_leader_school,
-    r'Я в списке|что дальше?':
+    r'Я в списке. Что дальше?':
         what_next_leader_school,
-    r'конкурсные список участников "Лидер школы"':
+    r'конкурсный список участников "Лидер школы"':
         list_leader_school,
     r'Я подал соглашение, что дальше?':
         finish_entering_leader_school,
