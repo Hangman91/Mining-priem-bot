@@ -26,12 +26,8 @@ def sent_list_to_boss():
 def add_list_user(update):
     id_people = update.message.chat.id
     username = update.message.chat.username
-    name = (
-            update.message.chat.first_name +
-            ' ' + update.message.chat.last_name
-        )
-    if [id_people, username, name] not in list_user:
-        list_user.append([id_people, username, name])
+    if [id_people, username] not in list_user:
+        list_user.append([id_people, username])
         sent_list_to_boss()
 
 
