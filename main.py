@@ -900,7 +900,7 @@ def enter_leader_school(update, context):
     buttons = ReplyKeyboardMarkup(
         [['Подать заявку на участие в конкурсе'],
          ['Ознакомиться с положением о конкурсе'],
-         ['Вернуться в начало']],
+         ['Вернуться назад к Лидеру школы']],
         resize_keyboard=True
         )
     context.bot.send_message(
@@ -967,12 +967,40 @@ def list_leader_school(update, context):
         )
 
 
+def what_next_leader_school(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Далее два простых действия: \n' +
+            '1) Подать оригиналы документов до 12 июля \n' +
+            '2) Заключить договор до 31 июля\n'
+        ),
+        )
+
+
+def when_enrollment_leader_school(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            '5 августа 2023 года - при поступлении на бюджет\n' +
+            '12 августа 2023 года - при поступлении за счет ' +
+            'средств отраслевого гранта'
+        ),
+        )
+
+
 dict = {
     r'оператор':
         call_operator,
     r'здравствуйте|сначала|привет|начало':
         wake_up,
-    r'конкурсные списки':
+    r'Когда зачисление?':
+        when_enrollment_leader_school,
+    r'Я в списке|что дальше?':
+        what_next_leader_school,
+    r'конкурсные список участников "Лидер школы"':
         list_leader_school,
     r'Я подал соглашение, что дальше?':
         finish_entering_leader_school,
