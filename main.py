@@ -1227,7 +1227,7 @@ dict = {
         period_phd_official,
     r'Приём документов в аспирантуру':
         acceptance_of_documents_phd,
-    r'Документы для поступления':
+    r'Документы для поступления в аспирантуру':
         docs_for_entrance_phd,
     r'Требования к структуре и содержанию научного задела':
         scientific_groundwork,
