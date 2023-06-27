@@ -899,7 +899,7 @@ def enter_leader_school(update, context):
     chat = update.effective_chat
     buttons = ReplyKeyboardMarkup(
         [['Подать заявку на участие в конкурсе'],
-         ['Скачать соглашение о намерениях'],
+         ['Ознакомиться с положением о конкурсе'],
          ['Вернуться в начало']],
         resize_keyboard=True
         )
@@ -920,7 +920,7 @@ def download_booklet(update, context):
         text=(
             'Скачать положение о конкурсе можно по ссылке: ' +
             'https://leaderschool.spmi.ru/sites/default/files' +
-            '/LeaderSchool/2-2.jpg'
+            '/LeaderSchool/lider_polozhenie2023.pdf'
         ),
         )
 
@@ -941,7 +941,7 @@ def finish_entering_leader_school(update, context):
     chat = update.effective_chat
     buttons = ReplyKeyboardMarkup(
         [['Подать документы в бакалавриат/специалитет'],
-         ['Вернуться в начало']],
+         ['Вернуться назад к Лидеру школы']],
         resize_keyboard=True
         )
     context.bot.send_message(
@@ -954,20 +954,35 @@ def finish_entering_leader_school(update, context):
     )
 
 
+def list_leader_school(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Итоговый конкурсный список участников "Лидер школы" ' +
+            'будет опубликован после 05 июля. \n' +
+            'Список участников доступен по ссылке:\n' +
+            'http://priem2023.spmi.ru/'
+        ),
+        )
+
+
 dict = {
     r'оператор':
         call_operator,
     r'здравствуйте|сначала|привет|начало':
         wake_up,
+    r'конкурсные списки':
+        list_leader_school,
     r'Я подал соглашение, что дальше?':
         finish_entering_leader_school,
-    r'Скачать соглашение':
+    r'Ознакомиться с положением':
         download_booklet,
     r'Подать заявку':
         welcome_to_leader_school,
     r'Как принять участие в конкурсе?':
         enter_leader_school,
-    r'Лидер школы':
+    r'Лидер школы|Вернуться назад к Лидеру школы':
         lider_of_the_school,
     r'Подать документы в бакалавриат/специалитет':
         submit_documents_first_course,
