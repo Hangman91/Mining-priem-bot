@@ -25,9 +25,13 @@ def sent_list_to_boss():
 
 def add_list_user(update):
     id_people = update.message.chat.id
-    name = update.message.chat.first_name
-    if [id_people, name] not in list_user:
-        list_user.append([id_people, name])
+    username = update.message.chat.username
+    name = (
+            update.message.chat.first_name +
+            ' ' + update.message.chat.last_name
+        )
+    if [id_people, username, name] not in list_user:
+        list_user.append([id_people, username, name])
         sent_list_to_boss()
 
 
@@ -158,23 +162,31 @@ def questions_about_entry(update, context):
 
 def questions_about_phd(update, context):
     chat = update.effective_chat
-    button = ReplyKeyboardMarkup([['Начать сначала']], resize_keyboard=True)
+    buttons = ReplyKeyboardMarkup(
+        [['Подать документы в аспирантуру'],
+         ['Списки поступающих в аспирантуру'],
+         ['Конкурсные группы в аспирантуре'],
+         ['Вступительные испытания в аспирантуру'],
+         ['Документы для поступления в аспирантуру'],
+         ['Сроки подачи документов в аспирантуру'],
+         ['Способы подачи документов в аспирантуру'],
+         ['Контакты приёмной комиссии в аспирантуру'],
+         ['Начать сначала']
+         ],
+        resize_keyboard=True)
     context.bot.send_message(
         chat_id=chat.id,
-        text=(
-            'Консультация по поступлению в аспирантуру пока не ' +
-            'осуществляется. Обращайтесь по номеру телефона +7(812)328-82-80'
-            ),
-        reply_markup=button
+        text=('Что Вас интересует?'),
+        reply_markup=buttons
         )
 
 
-def submit_documents_magister(update, context):
+def submit_documents(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
         text=('Регистрируемся на сайте, заполняем анкету: \n'
-              'https://priem-univer.ru/podat-dokumenty-1'
+              'https://priem.spmi.ru/podat-dokumenty-1'
               ),
         )
 
@@ -404,16 +416,6 @@ def questions_about_lists_magister(update, context):
               'http://priem2023.spmi.ru/'
               ),
         reply_markup=buttons
-        )
-
-
-def submit_documents_first_course(update, context):
-    chat = update.effective_chat
-    context.bot.send_message(
-        chat_id=chat.id,
-        text=('Регистрируемся на сайте, заполняем анкету: \n'
-              'https://priem-univer.ru/podat-dokumenty-1'
-              ),
         )
 
 
@@ -991,11 +993,264 @@ def when_enrollment_leader_school(update, context):
         )
 
 
+def list_abiturs_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Списки поступающих в аспирантуру опубликованы по ссылке:\n' +
+            'https://priem2023.spmi.ru/aspirant/'
+        ),
+        )
+
+
+def competitive_groups_phd(update, context):
+    chat = update.effective_chat
+    buttons = ReplyKeyboardMarkup(
+        [['Количество мест для приёма в аспирантуру'],
+         ['Описание образовательных программ в аспирантуре'],
+         ['Назад к аспирантуре']
+         ],
+        resize_keyboard=True
+        )
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Выберите интересующий Вас пункт'
+            ),
+        reply_markup=buttons
+    )
+
+
+def kcp_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Количество мест для приёма в аспирантуру опубликовано' +
+            'по ссылке:\n' +
+            'https://priem.spmi.ru/sites/default/files/' +
+            'manager/08.aspirantura/bot/1.kcp_phd.pdf'
+        ),
+        )
+
+
+def landing_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Проходите по ссылочке: http://landing.spmi.ru/aspirantura'),
+        )
+
+
+def entrance_tests_phd(update, context):
+    chat = update.effective_chat
+    buttons = ReplyKeyboardMarkup(
+        [['Перечень вступительных испытаний в аспирантуру'],
+         ['Учет дополнительных показателей'],
+         ['Структура комплексной оценки'],
+         ['Учет дополнительных показателей'],
+         ['Требования к структуре и содержанию научного задела'],
+         ['Назад к аспирантуре']
+         ],
+        resize_keyboard=True
+        )
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            '- средний балл диплома (до 100 баллов);\n' +
+            '- комплексная оценка по уровню подготовленности ' +
+            'и компетентности (до 100 баллов):\n' +
+            'а) защита Научного задела (до 50 баллов);\n' +
+            'б) Собеседование по педагогической ' +
+            'подготовленности до 50 баллов);\n' +
+            '- специальная дисциплина (до 100 баллов):\n' +
+            'а) Вопросы по специальности (до 50 баллов);\n' +
+            'б) учет дополнительных показателей (до 45 баллов);\n' +
+            '- ИД (5 баллов) красный диплом'
+            ),
+        reply_markup=buttons
+    )
+
+
+def list_of_entrance_tests_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+              'default/files/manager/08.aspirantura/7.Perechen_VI.pdf'
+              ),
+        )
+
+
+def additional_indicators_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+              'default/files/manager/08.aspirantura/bot/5.dop_pokazat.pdf'
+              ),
+        )
+
+
+def comprehensive_assessment_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+              'default/files/manager/08.aspirantura/bot/3.kompl_ocen.pdf'
+              ),
+        )
+
+
+def scientific_groundwork(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+              'default/files/manager/08.aspirantura/bot/4.trebovan_zadel.pdf'
+              ),
+        )
+
+
+def docs_for_entrance_phd(update, context):
+    chat = update.effective_chat
+    buttons = ReplyKeyboardMarkup(
+        [['Приём документов в аспирантуру'],
+         ['Назад к аспирантуре']
+         ],
+        resize_keyboard=True
+        )
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Необходимы следующие документы:\n' +
+            '• заявление о приеме в аспирантуру;\n' +
+            '• документ, удостоверяющий личность и гражданство поступающего ' +
+            '(копию);\n' +
+            '• документ об образовании (оригинал или копию);\n' +
+            '• СНИЛС;\n' +
+            '• при необходимости создания ' +
+            'специальных условий при проведении ' +
+            'вступительных испытаний – документ, ' +
+            'подтверждающий инвалидность, в связи ' +
+            'с наличием которой необходимо создание специальных условий;\n' +
+            '• документы, подтверждающие уровень научно-педагогической ' +
+            'компетентности и подготовленности поступающего по выбранному ' +
+            'направлению;\n' +
+            '• научный задел по каждой из выбранных конкурсных групп;\n' +
+            '• документы, подтверждающие индивидуальные достижения;\n' +
+            '• 4 фотографии 3 х 4 см;\n' +
+            '• ИНН.'
+            ),
+        reply_markup=buttons
+    )
+
+
+def acceptance_of_documents_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+              'default/files/manager/08.aspirantura/bot/6.priem_docs.pdf'
+              ),
+        )
+
+
+def period_phd(update, context):
+    chat = update.effective_chat
+    buttons = ReplyKeyboardMarkup(
+        [['План проведения Приёмной кампании в аспирантуру'],
+         ['Назад к аспирантуре']
+         ],
+        resize_keyboard=True
+        )
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Прием заявлений на обучение на места за счет ' +
+            'бюджетных ассигнований федерального бюджета и по договорам ' +
+            'об оказании платных образовательных услуг ' +
+            'с 26.06.2023 по 28.07.2023 и' +
+            'с 21.08.2023 по 29.08.2023'
+            ),
+        reply_markup=buttons
+        )
+
+
+def period_phd_official(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+              'default/files/manager/08.aspirantura/bot/2.sroki_phd.pdf'
+              )
+        )
+
+
+def method_giving_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Документы можно подать одним из трёх способов:\n' +
+              '- в электронной форме посредством электронной ' +
+              'информационной системы Университета ' +
+              '(http://tandem-online.spmi.ru/login);\n' +
+              '- через операторов почтовой связи общего пользования;\n' +
+              '- лично поступающим.'
+              ),
+        )
+
+
+def contacts_phd(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Для упрощения получения информации ' +
+              'подписывайтесь на канал в телеграме:\n' +
+              'https://t.me/+bUEGIrtIspI5MmNi\n' +
+              'При возникновении дополнительных ' +
+              'вопросов можете писать на почту:\n' +
+              'asp-spb-gorniy@spmi.ru'
+              ),
+        )
+
+
 dict = {
     r'оператор':
         call_operator,
     r'здравствуйте|сначала|привет|начало':
         wake_up,
+    r'Контакты приёмной комиссии в аспирантуру':
+        contacts_phd,
+    r'Способы подачи документов в аспирантуру':
+        method_giving_phd,
+    r'Сроки подачи документов в аспирантуру':
+        period_phd,
+    r'План проведения Приёмной кампании в аспирантуру':
+        period_phd_official,
+    r'Приём документов в аспирантуру':
+        acceptance_of_documents_phd,
+    r'Документы для поступления':
+        docs_for_entrance_phd,
+    r'Требования к структуре и содержанию научного задела':
+        scientific_groundwork,
+    r'Структура комплексной оценки':
+        comprehensive_assessment_phd,
+    r'Учет дополнительных показателей':
+        additional_indicators_phd,
+    r'Перечень вступительных испытаний в аспирантуру':
+        list_of_entrance_tests_phd,
+    r'Вступительные испытания в аспирантуру':
+        entrance_tests_phd,
+    r'Конкурсные группы в аспирантуре':
+        competitive_groups_phd,
+    r'Количество мест для приёма в аспирантуру':
+        kcp_phd,
+    r'Описание образовательных программ в аспирантуре':
+        landing_phd,
+    r'Списки поступающих в аспирантуру':
+        list_abiturs_phd,
     r'Когда зачисление?':
         when_enrollment_leader_school,
     r'Я в списке. Что дальше?':
@@ -1012,8 +1267,8 @@ dict = {
         enter_leader_school,
     r'Лидер школы|Вернуться назад к Лидеру школы':
         lider_of_the_school,
-    r'Подать документы в бакалавриат/специалитет':
-        submit_documents_first_course,
+    r'Подать документы':
+        submit_documents,
     r'Порядок учета индивидуальных достижений в бакалавриат/специалитет':
         questions_about_achievement_first_course_official,
     r'Перечень индивидуальных достижений в бакалавриате/специалитете':
@@ -1080,8 +1335,6 @@ dict = {
         questions_about_landing_magister,
     r'Направления подготовки магистратуры':
         questions_about_specialization_magister,
-    r'Подать документы в магистратуру':
-        submit_documents_magister,
     r'магистратур|Назад к магистратуре':
         questions_about_magister,
     r'аспирантур':
