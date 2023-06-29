@@ -1035,7 +1035,7 @@ def landing_phd(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
-        text=('Проходите по ссылочке: http://landing.spmi.ru/aspirantura'),
+        text=('Проходите по ссылке: http://landing.spmi.ru/aspirantura'),
         )
 
 
@@ -1073,7 +1073,7 @@ def list_of_entrance_tests_phd(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
-        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+        text=('Проходите по ссылке: https://priem.spmi.ru/sites/' +
               'default/files/manager/08.aspirantura/7.Perechen_VI.pdf'
               ),
         )
@@ -1083,7 +1083,7 @@ def additional_indicators_phd(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
-        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+        text=('Проходите по ссылке: https://priem.spmi.ru/sites/' +
               'default/files/manager/08.aspirantura/bot/5.dop_pokazat.pdf'
               ),
         )
@@ -1093,7 +1093,7 @@ def comprehensive_assessment_phd(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
-        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+        text=('Проходите по ссылке: https://priem.spmi.ru/sites/' +
               'default/files/manager/08.aspirantura/bot/3.kompl_ocen.pdf'
               ),
         )
@@ -1103,7 +1103,7 @@ def scientific_groundwork(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
-        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+        text=('Проходите по ссылке: https://priem.spmi.ru/sites/' +
               'default/files/manager/08.aspirantura/bot/4.trebovan_zadel.pdf'
               ),
         )
@@ -1147,7 +1147,7 @@ def acceptance_of_documents_phd(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
-        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+        text=('Проходите по ссылке: https://priem.spmi.ru/sites/' +
               'default/files/manager/08.aspirantura/bot/6.priem_docs.pdf'
               ),
         )
@@ -1178,7 +1178,7 @@ def period_phd_official(update, context):
     chat = update.effective_chat
     context.bot.send_message(
         chat_id=chat.id,
-        text=('Проходите по ссылочке: https://priem.spmi.ru/sites/' +
+        text=('Проходите по ссылке: https://priem.spmi.ru/sites/' +
               'default/files/manager/08.aspirantura/bot/2.sroki_phd.pdf'
               )
         )
