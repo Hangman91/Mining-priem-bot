@@ -166,6 +166,7 @@ def questions_about_phd(update, context):
          ['Документы для поступления в аспирантуру'],
          ['Сроки подачи документов в аспирантуру'],
          ['Способы подачи документов в аспирантуру'],
+         ['Возможность учета публикаций РИНЦ, ВАК, Scopus']
          ['Контакты приёмной комиссии в аспирантуру'],
          ['Начать сначала']
          ],
@@ -1054,16 +1055,18 @@ def entrance_tests_phd(update, context):
     context.bot.send_message(
         chat_id=chat.id,
         text=(
-            '- средний балл диплома (до 100 баллов);\n' +
+            '- Cредний балл диплома в переводе в 100-балльную шкалу;\n' +
             '- комплексная оценка по уровню подготовленности ' +
             'и компетентности (до 100 баллов):\n' +
             'а) защита Научного задела (до 50 баллов);\n' +
-            'б) Собеседование по педагогической ' +
+            'б) cобеседование по педагогической ' +
             'подготовленности до 50 баллов);\n' +
             '- специальная дисциплина (до 100 баллов):\n' +
             'а) Вопросы по специальности (до 50 баллов);\n' +
             'б) учет дополнительных показателей (до 45 баллов);\n' +
-            '- ИД (5 баллов) красный диплом'
+            '- ИД (5 баллов) красный диплом\n' +
+            'https://priem.spmi.ru/sites/default/' +
+            'files/manager/08.aspirantura/bot/7.Vstup_isp.pdf'
             ),
         reply_markup=buttons
     )
@@ -1212,11 +1215,28 @@ def contacts_phd(update, context):
         )
 
 
+def publication_vak_rinc_scopus(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Примеры оформления статей при подаче документов:\n' +
+              'РИНЦ:https://priem.spmi.ru/sites/default' +
+              '/files/manager/08.aspirantura/bot/10.Rinc_.pdf'
+              'ВАК: https://priem.spmi.ru/sites/default' +
+              '/files/manager/08.aspirantura/bot/9.Vak_.pdf\n' +
+              'Scopus: https://priem.spmi.ru/sites/default' +
+              '/files/manager/08.aspirantura/bot/8.Scopus.pdf\n'
+              ),
+        )
+
+
 dict = {
     r'оператор':
         call_operator,
     r'здравствуйте|сначала|привет|начало':
         wake_up,
+    r'Возможность учета публикаций РИНЦ, ВАК, Scopus':
+        publication_vak_rinc_scopus,
     r'Контакты приёмной комиссии в аспирантуру':
         contacts_phd,
     r'Способы подачи документов в аспирантуру':
