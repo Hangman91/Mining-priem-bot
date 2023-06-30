@@ -1221,7 +1221,7 @@ def publication_vak_rinc_scopus(update, context):
         chat_id=chat.id,
         text=('Примеры оформления статей при подаче документов:\n' +
               'РИНЦ:https://priem.spmi.ru/sites/default' +
-              '/files/manager/08.aspirantura/bot/10.Rinc_.pdf'
+              '/files/manager/08.aspirantura/bot/10.Rinc_.pdf\n' +
               'ВАК: https://priem.spmi.ru/sites/default' +
               '/files/manager/08.aspirantura/bot/9.Vak_.pdf\n' +
               'Scopus: https://priem.spmi.ru/sites/default' +
