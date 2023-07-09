@@ -34,8 +34,6 @@ def statistic(update, context):
     """Отправляем необходимое письмо Дементьеву."""
     id_people = update.message.chat.id
     bot = Bot(token=secret_token)
-    print(id_people)
-    print(boss_token)
     if id_people == int(boss_token):
         message = list_user
     else:
