@@ -30,12 +30,17 @@ def counter(update):
         list_user.append([id_people, username, 0])
 
 
-def statistic():
+def statistic(update, context):
     """Отправляем необходимое письмо Дементьеву."""
-    chat_id = boss_token
+    id_people = update.message.chat.id
     bot = Bot(token=secret_token)
-    message = list_user
-    bot.send_message(chat_id, message)
+    print(id_people)
+    print(boss_token)
+    if id_people == int(boss_token):
+        message = list_user
+    else:
+        message = 'Недостаточно прав для просмотра статистики'
+    bot.send_message(id_people, message)
 
 
 def i_dont_know(update, context):
@@ -1459,7 +1464,7 @@ dict = {
         questions_about_identificate_number,
     r'общежити|общаг':
         questions_about_hostel,
-    r'статистика':
+    r'Статистика':
         statistic
     # r'massmail':
     # massmail
