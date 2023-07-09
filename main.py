@@ -15,20 +15,27 @@ updater = Updater(token=secret_token)
 list_user = []
 
 
-def sent_list_to_boss():
+def counter(update):
+    id_people = update.message.chat.id
+    username = update.message.chat.username
+    t = 0
+    old_user = False
+    for i in list_user:
+        if id_people == i[0]:
+            list_user[t] = [i[0], i[1], i[2]+1]
+            old_user = True
+            break
+        t += 1
+    if not old_user:
+        list_user.append([id_people, username, 0])
+
+
+def statistic():
     """Отправляем необходимое письмо Дементьеву."""
     chat_id = boss_token
     bot = Bot(token=secret_token)
     message = list_user
     bot.send_message(chat_id, message)
-
-
-def add_list_user(update):
-    id_people = update.message.chat.id
-    username = update.message.chat.username
-    if [id_people, username] not in list_user:
-        list_user.append([id_people, username])
-        sent_list_to_boss()
 
 
 def i_dont_know(update, context):
@@ -45,6 +52,7 @@ def i_dont_know(update, context):
             ),
         reply_markup=button
         )
+    counter(update)
 
 
 def call_operator(update, context):
@@ -58,6 +66,7 @@ def call_operator(update, context):
         text='https://t.me/Mining_university_official',
         reply_markup=button
         )
+    counter(update)
 
 
 def wake_up(update, context):
@@ -76,7 +85,7 @@ def wake_up(update, context):
             ),
         reply_markup=buttons
         )
-    add_list_user(update)
+    counter(update)
 
 
 def questions_about_hostel(update, context):
@@ -95,6 +104,7 @@ def questions_about_hostel(update, context):
         text='Что именно Вас интересует?',
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_identificate_number(update, context):
@@ -106,6 +116,7 @@ def questions_about_identificate_number(update, context):
             'по ссылке: https://priem.spmi.ru/abiurient-nomer'
             )
         )
+    counter(update)
 
 
 def questions_about_application_for_hostel(update, context):
@@ -118,6 +129,7 @@ def questions_about_application_for_hostel(update, context):
             '/obzhezhitia/2023/Poryadok_predost.pdf'
             )
         )
+    counter(update)
 
 
 def questions_about_price_hostel(update, context):
@@ -129,6 +141,7 @@ def questions_about_price_hostel(update, context):
             'https://spmi.ru/stoimost-prozivania-s-ucetom-komfortnosti'
             )
         )
+    counter(update)
 
 
 def question_len_hostels(update, context):
@@ -141,6 +154,7 @@ def question_len_hostels(update, context):
             '/2023/Svodnaya.pdf'
             )
         )
+    counter(update)
 
 
 def questions_about_entry(update, context):
@@ -154,6 +168,7 @@ def questions_about_entry(update, context):
         text='На какой уровень образования Вы планируете поступать?',
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_phd(update, context):
@@ -176,6 +191,7 @@ def questions_about_phd(update, context):
         text=('Что Вас интересует?'),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def submit_documents(update, context):
@@ -186,6 +202,7 @@ def submit_documents(update, context):
               'https://priem.spmi.ru/podat-dokumenty-1'
               ),
         )
+    counter(update)
 
 
 def questions_about_magister(update, context):
@@ -207,6 +224,7 @@ def questions_about_magister(update, context):
         text='Что именно Вас интересует?',
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_specialization_magister(update, context):
@@ -226,6 +244,7 @@ def questions_about_specialization_magister(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_kcp_magister(update, context):
@@ -238,6 +257,7 @@ def questions_about_kcp_magister(update, context):
             '/03.PlanPriema/kcp_mag.pdf'
             ),
         )
+    counter(update)
 
 
 def questions_about_landing_magister(update, context):
@@ -249,6 +269,7 @@ def questions_about_landing_magister(update, context):
             'собрана на сайте: http://landing.spmi.ru/magistratura'
             ),
         )
+    counter(update)
 
 
 def questions_about_exams_magister(update, context):
@@ -265,6 +286,7 @@ def questions_about_exams_magister(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_docs_magister(update, context):
@@ -290,6 +312,7 @@ def questions_about_docs_magister(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_achievement_magister(update, context):
@@ -319,6 +342,7 @@ def questions_about_achievement_magister(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_achievement_magister_official(update, context):
@@ -337,6 +361,7 @@ def questions_about_achievement_magister_official(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_period_magister(update, context):
@@ -362,6 +387,7 @@ def questions_about_period_magister(update, context):
               ),
         reply_markup=buttons
     )
+    counter(update)
 
 
 def questions_about_period_magister_official(update, context):
@@ -379,6 +405,7 @@ def questions_about_period_magister_official(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_method_magister(update, context):
@@ -399,6 +426,7 @@ def questions_about_method_magister(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_lists_magister(update, context):
@@ -414,6 +442,7 @@ def questions_about_lists_magister(update, context):
               ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_first_course(update, context):
@@ -436,6 +465,7 @@ def questions_about_first_course(update, context):
         text='Что именно Вас интересует?',
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_specialization_first_course(update, context):
@@ -456,6 +486,7 @@ def questions_about_specialization_first_course(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_kcp_first_course(update, context):
@@ -479,6 +510,7 @@ def questions_about_landing_first_course(update, context):
             'собрана на сайте: http://landing.spmi.ru/bakalavriat'
             ),
         )
+    counter(update)
 
 
 def questions_about_ege_first_course(update, context):
@@ -496,6 +528,7 @@ def questions_about_ege_first_course(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_min_ege_first_course(update, context):
@@ -518,6 +551,7 @@ def questions_about_min_ege_first_course(update, context):
             ),
         reply_markup=buttons
     )
+    counter(update)
 
 
 def questions_about_min_ege_threshold_first_course(update, context):
@@ -537,6 +571,7 @@ def questions_about_min_ege_threshold_first_course(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_min_ege_last_year_first_course(update, context):
@@ -555,6 +590,7 @@ def questions_about_min_ege_last_year_first_course(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_period__first_course(update, context):
@@ -587,6 +623,7 @@ def questions_about_period__first_course(update, context):
             ),
         reply_markup=buttons
     )
+    counter(update)
 
 
 def questions_about_period_first_course_official(update, context):
@@ -626,6 +663,7 @@ def questions_about_method_first_course(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_lists_first_course(update, context):
@@ -656,6 +694,7 @@ def questions_about_docs_first_course(update, context):
         text=('Что именно Вас интересует?'),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_first_course_budget(update, context):
@@ -673,6 +712,7 @@ def questions_about_first_course_budget(update, context):
         text='Выберите вид приёма',
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_first_course_budget_general(update, context):
@@ -697,6 +737,7 @@ def questions_about_first_course_budget_general(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_first_course_budget_targeted(update, context):
@@ -722,6 +763,7 @@ def questions_about_first_course_budget_targeted(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_first_course_budget_specific(update, context):
@@ -747,6 +789,7 @@ def questions_about_first_course_budget_specific(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_first_course_budget_separated(update, context):
@@ -772,6 +815,7 @@ def questions_about_first_course_budget_separated(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_first_course_contract(update, context):
@@ -797,6 +841,7 @@ def questions_about_first_course_contract(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_first_course_foreigner(update, context):
@@ -820,6 +865,7 @@ def questions_about_first_course_foreigner(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_achievement_first_course(update, context):
@@ -846,6 +892,7 @@ def questions_about_achievement_first_course(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def questions_about_achievement_first_course_official(update, context):
@@ -864,6 +911,7 @@ def questions_about_achievement_first_course_official(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def lider_of_the_school(update, context):
@@ -898,6 +946,7 @@ def lider_of_the_school(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def enter_leader_school(update, context):
@@ -916,6 +965,7 @@ def enter_leader_school(update, context):
         ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def download_booklet(update, context):
@@ -928,6 +978,7 @@ def download_booklet(update, context):
             '2023-07/Положение%20о%20конкурсе%20Лидер%20школы%202.0_0.pdf'
         ),
         )
+    counter(update)
 
 
 def welcome_to_leader_school(update, context):
@@ -940,6 +991,7 @@ def welcome_to_leader_school(update, context):
             'iCrvmtnt3FwU2yxFAVDskqg0aZxj7QqCnbUGg/viewform?pli=1'
         ),
         )
+    counter(update)
 
 
 def finish_entering_leader_school(update, context):
@@ -957,6 +1009,7 @@ def finish_entering_leader_school(update, context):
             ),
         reply_markup=buttons
     )
+    counter(update)
 
 
 def list_leader_school(update, context):
@@ -965,13 +1018,14 @@ def list_leader_school(update, context):
         chat_id=chat.id,
         text=(
             'Итоговый конкурсный список участников "Лидер школы" ' +
-            'будет опубликован здесь: \n' +
+            'опубликован здесь: \n' +
             'https://priem.spmi.ru/sites/default/' +
             'files/manager/10.leader/Leader_1.pdf\n' +
             'Список участников второго раза доступен по ссылке:\n' +
             'http://priem2023.spmi.ru/'
         ),
         )
+    counter(update)
 
 
 def what_next_leader_school(update, context):
@@ -983,6 +1037,7 @@ def what_next_leader_school(update, context):
             'Подать оригиналы документов и согласие до 12 июля'
         ),
         )
+    counter(update)
 
 
 def when_enrollment_leader_school(update, context):
@@ -995,6 +1050,7 @@ def when_enrollment_leader_school(update, context):
             'средств отраслевого гранта'
         ),
         )
+    counter(update)
 
 
 def list_abiturs_phd(update, context):
@@ -1006,6 +1062,7 @@ def list_abiturs_phd(update, context):
             'https://priem2023.spmi.ru/aspirant/'
         ),
         )
+    counter(update)
 
 
 def competitive_groups_phd(update, context):
@@ -1024,6 +1081,7 @@ def competitive_groups_phd(update, context):
             ),
         reply_markup=buttons
     )
+    counter(update)
 
 
 def kcp_phd(update, context):
@@ -1037,6 +1095,7 @@ def kcp_phd(update, context):
             'manager/08.aspirantura/bot/1.kcp_phd.pdf'
         ),
         )
+    counter(update)
 
 
 def landing_phd(update, context):
@@ -1045,6 +1104,7 @@ def landing_phd(update, context):
         chat_id=chat.id,
         text=('Проходите по ссылке: http://landing.spmi.ru/aspirantura'),
         )
+    counter(update)
 
 
 def entrance_tests_phd(update, context):
@@ -1077,6 +1137,7 @@ def entrance_tests_phd(update, context):
             ),
         reply_markup=buttons
     )
+    counter(update)
 
 
 def list_of_entrance_tests_phd(update, context):
@@ -1087,6 +1148,7 @@ def list_of_entrance_tests_phd(update, context):
               'default/files/manager/08.aspirantura/7.Perechen_VI.pdf'
               ),
         )
+    counter(update)
 
 
 def additional_indicators_phd(update, context):
@@ -1097,6 +1159,7 @@ def additional_indicators_phd(update, context):
               'default/files/manager/08.aspirantura/bot/5.dop_pokazat.pdf'
               ),
         )
+    counter(update)
 
 
 def comprehensive_assessment_phd(update, context):
@@ -1107,6 +1170,7 @@ def comprehensive_assessment_phd(update, context):
               'default/files/manager/08.aspirantura/bot/3.kompl_ocen.pdf'
               ),
         )
+    counter(update)
 
 
 def scientific_groundwork(update, context):
@@ -1117,6 +1181,7 @@ def scientific_groundwork(update, context):
               'default/files/manager/08.aspirantura/bot/4.trebovan_zadel.pdf'
               ),
         )
+    counter(update)
 
 
 def docs_for_entrance_phd(update, context):
@@ -1151,6 +1216,7 @@ def docs_for_entrance_phd(update, context):
             ),
         reply_markup=buttons
     )
+    counter(update)
 
 
 def acceptance_of_documents_phd(update, context):
@@ -1161,6 +1227,7 @@ def acceptance_of_documents_phd(update, context):
               'default/files/manager/08.aspirantura/bot/6.priem_docs.pdf'
               ),
         )
+    counter(update)
 
 
 def period_phd(update, context):
@@ -1182,6 +1249,7 @@ def period_phd(update, context):
             ),
         reply_markup=buttons
         )
+    counter(update)
 
 
 def period_phd_official(update, context):
@@ -1206,6 +1274,7 @@ def method_giving_phd(update, context):
               '- лично поступающим.'
               ),
         )
+    counter(update)
 
 
 def contacts_phd(update, context):
@@ -1220,6 +1289,7 @@ def contacts_phd(update, context):
               'asp-spb-gorniy@spmi.ru'
               ),
         )
+    counter(update)
 
 
 def publication_vak_rinc_scopus(update, context):
@@ -1235,6 +1305,7 @@ def publication_vak_rinc_scopus(update, context):
               '/files/manager/08.aspirantura/bot/8.Scopus.pdf\n'
               ),
         )
+    counter(update)
 
 
 def list_of_winner(update, context):
@@ -1246,6 +1317,7 @@ def list_of_winner(update, context):
               'files/manager/10.leader/Leader_1.pdf'
               ),
         )
+    counter(update)
 
 
 dict = {
@@ -1387,6 +1459,10 @@ dict = {
         questions_about_identificate_number,
     r'общежити|общаг':
         questions_about_hostel,
+    r'статистика':
+        statistic
+    # r'massmail':
+    # massmail
     }
 
 
