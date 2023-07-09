@@ -636,7 +636,7 @@ def questions_about_lists_first_course(update, context):
         )
     context.bot.send_message(
         chat_id=chat.id,
-        text=('Списки поступающих доступны по ссылке: ' +
+        text=('Конкурсные списки поступающих доступны по ссылке: ' +
               'http://priem2023.spmi.ru/'
               ),
         reply_markup=buttons
@@ -869,7 +869,8 @@ def questions_about_achievement_first_course_official(update, context):
 def lider_of_the_school(update, context):
     chat = update.effective_chat
     buttons = ReplyKeyboardMarkup(
-        [['Как принять участие в конкурсе?'],
+        [['Список победителей конкурса'],
+         ['Как принять участие в конкурсе?'],
          ['Я подал соглашение, что дальше?'],
          ['Когда будет итоговый конкурсный список участников "Лидер школы"?'],
          ['Я в списке. Что дальше?'],
@@ -880,6 +881,11 @@ def lider_of_the_school(update, context):
     context.bot.send_message(
         chat_id=chat.id,
         text=(
+            'Опубликован первый список победителей конкурса!\n' +
+            'Поздравляем победителей с получением гарантии ' +
+            'зачисления на бесплатное!\n' +
+            'Также запущен второй раз проведения конкурса!' +
+            'Следите за датами!\n\n' +
             'Конкурс «Лидер школы» проводится с целью организации ' +
             'качественного ' +
             'приема на обучение по направлениям подготовки и специальностям ' +
@@ -918,8 +924,8 @@ def download_booklet(update, context):
         chat_id=chat.id,
         text=(
             'Скачать положение о конкурсе можно по ссылке: ' +
-            'https://leaderschool.spmi.ru/sites/default/files' +
-            '/LeaderSchool/lider_polozhenie2023.pdf'
+            'https://leaderschool.spmi.ru/sites/default/files/' +
+            '2023-07/Положение%20о%20конкурсе%20Лидер%20школы%202.0_0.pdf'
         ),
         )
 
@@ -959,8 +965,10 @@ def list_leader_school(update, context):
         chat_id=chat.id,
         text=(
             'Итоговый конкурсный список участников "Лидер школы" ' +
-            'будет опубликован после 05 июля. \n' +
-            'Список участников доступен по ссылке:\n' +
+            'будет опубликован здесь: \n' +
+            'https://priem.spmi.ru/sites/default/' +
+            'files/manager/10.leader/Leader_1.pdf\n' +
+            'Список участников второго раза доступен по ссылке:\n' +
             'http://priem2023.spmi.ru/'
         ),
         )
@@ -971,9 +979,8 @@ def what_next_leader_school(update, context):
     context.bot.send_message(
         chat_id=chat.id,
         text=(
-            'Далее два простых действия: \n' +
-            '1) Подать оригиналы документов до 12 июля \n' +
-            '2) Заключить договор до 31 июля\n'
+            'Простое действие: \n' +
+            'Подать оригиналы документов и согласие до 12 июля'
         ),
         )
 
@@ -1230,11 +1237,24 @@ def publication_vak_rinc_scopus(update, context):
         )
 
 
+def list_of_winner(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=('Список первых победителей по ссылке:\n' +
+              'https://priem.spmi.ru/sites/default/' +
+              'files/manager/10.leader/Leader_1.pdf'
+              ),
+        )
+
+
 dict = {
     r'оператор':
         call_operator,
     r'здравствуйте|сначала|привет|начало':
         wake_up,
+    r'Список победителей конкурса':
+        list_of_winner,
     r'Возможность учета публикаций РИНЦ, ВАК, Scopus':
         publication_vak_rinc_scopus,
     r'Контакты приёмной комиссии в аспирантуру':
