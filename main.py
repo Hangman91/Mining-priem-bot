@@ -211,7 +211,8 @@ def submit_documents(update, context):
 def questions_about_magister(update, context):
     chat = update.effective_chat
     buttons = ReplyKeyboardMarkup(
-        [['Подать документы в магистратуру'],
+        [['Приказы о зачислении'],
+         ['Подать документы в магистратуру'],
          ['Направления подготовки магистратуры'],
          ['Вступительные испытания в магистратуру'],
          ['Документы для поступления в магистратуру'],
@@ -451,7 +452,8 @@ def questions_about_lists_magister(update, context):
 def questions_about_first_course(update, context):
     chat = update.effective_chat
     buttons = ReplyKeyboardMarkup(
-        [['Подать документы в бакалавриат/специалитет'],
+        [['Приказы о зачислении'],
+         ['Подать документы в бакалавриат/специалитет'],
          ['Направления подготовки/специальности'],
          ['Требуемые ЕГЭ'],
          ['Минимальные баллы'],
@@ -1323,11 +1325,34 @@ def list_of_winner(update, context):
     counter(update)
 
 
+def order(update, context):
+    chat = update.effective_chat
+    buttons = ReplyKeyboardMarkup(
+        [['Что делать дальше?'],
+         ['Вернуться к началу']
+         ],
+        resize_keyboard=True
+        )
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            'Уже опубликованы приказы о зачислении!\n' +
+            'Найти их можете по ссылке:\n' +
+            'https://priem.spmi.ru/o-zachislenii' +
+            '-v-chislo-obuchayuschikhsya-2023'
+            ),
+        reply_markup=buttons
+        )
+    counter(update)
+
+
 dict = {
     r'оператор':
         call_operator,
     r'здравствуйте|сначала|привет|начало':
         wake_up,
+    r'приказ':
+        order,
     r'Список победителей конкурса':
         list_of_winner,
     r'Возможность учета публикаций РИНЦ, ВАК, Scopus':
