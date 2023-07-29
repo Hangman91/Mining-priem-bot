@@ -1,5 +1,8 @@
 # Mining-priem-bot
 
+![Main workflow](https://github.com/Hangman91/Mining-priem-bot/actions/workflows/main.yml/badge.svg)
+
+
 Cоздать и активировать виртуальное окружение:
 
 ```
