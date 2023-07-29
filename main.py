@@ -1345,6 +1345,22 @@ def order(update, context):
         )
     counter(update)
 
+def what_next(update, context):
+    chat = update.effective_chat
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=(
+            '1) Радоваться\n' +
+            '2) Писать заявление на общежитие\n' +
+            '3) Получать чип-карту\n' +
+            '4) Получить форменный пиджак\n' +
+            'Подробности в новости:\n' +
+            'http://priem.spmi.ru/novosti/' +
+            'pozdravlyaem-vy-zachisleny-chto-delat-dalshe'
+            )
+        )
+    counter(update)
+
 
 dict = {
     r'оператор':
@@ -1353,6 +1369,8 @@ dict = {
         wake_up,
     r'приказ':
         order,
+    r'Что делать дальше':
+        what_next,
     r'Список победителей конкурса':
         list_of_winner,
     r'Возможность учета публикаций РИНЦ, ВАК, Scopus':
